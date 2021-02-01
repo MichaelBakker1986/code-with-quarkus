@@ -1,0 +1,17 @@
+<ehcache>
+    <defaultCache
+            name="defaut"
+            maxElementsInMemory="1000000"
+            eternal="false"
+            timeToIdleSeconds="20000"
+            timeToLiveSeconds="20000"
+            overflowToDisk="false"
+            diskPersistent="false"
+            memoryStoreEvictionPolicy="LRU"
+    />
+    <cache name="nl.appmodel.Pro"
+           timeToIdleSeconds="20000"
+           timeToLiveSeconds="20000"
+           maxElementsInMemory="1000000"
+    />
+</ehcache>
