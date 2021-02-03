@@ -6,20 +6,18 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-@Path("/hello-resteasy")
-public class GreetingResource {
-    Session session = HibernateUtilWithJavaConfig
-            .getSessionFactory()
-            .openSession();
+@Path("/total")
+public class TotalCountService {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
+    public Long hello() {
+        Session session = HibernateUtilWithJavaConfig
+                .getSessionFactory()
+                .openSession();
         var o = session.createQuery("select count(*) from Pro where downloaded=true")
                        .setHint("org.hibernate.cacheable", true)
                        .uniqueResult();
-        return "Hello RESTEasydada3131das" + taest() + " ->" + o;
-    }
-    public String taest() {
-        return "daddass1das";
+        session.close();
+        return (Long) o;
     }
 }

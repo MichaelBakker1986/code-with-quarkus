@@ -3,15 +3,15 @@
             name="defaut"
             maxElementsInMemory="1000000"
             eternal="false"
-            timeToIdleSeconds="20000"
-            timeToLiveSeconds="20000"
+            timeToIdleSeconds="300"
+            timeToLiveSeconds="300"
             overflowToDisk="false"
             diskPersistent="false"
             memoryStoreEvictionPolicy="LRU"
     />
     <cache name="nl.appmodel.Pro"
-           timeToIdleSeconds="20000"
-           timeToLiveSeconds="20000"
+           timeToIdleSeconds="300"
+           timeToLiveSeconds="300"
            maxElementsInMemory="1000000"
     />
 </ehcache>
