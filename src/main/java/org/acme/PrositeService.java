@@ -20,8 +20,8 @@ public class PrositeService {
     @Produces({MediaType.APPLICATION_JSON})
     public String hello() {
         Session session = HibernateUtilWithJavaConfig
-                .getSessionFactory()
-                .openSession();
+                .getSessionFactory().getCurrentSession();
+        /*.openSession();*/
         val cb   = session.getCriteriaBuilder();
         val cr   = cb.createQuery(Pro.class);
         val root = cr.from(Pro.class);
@@ -34,7 +34,7 @@ public class PrositeService {
         query.setHint("org.hibernate.cacheable", true);
         query.setCacheable(true);
         List<Pro> list = query.list();
-        session.close();
+        // session.close();
         var object = list.stream().map(l -> new DataObjectPro(l.getId(), 1, Base64.fromId(l.getId()))).toArray();
         /*var o = session.createQuery("FROM Pro order by views DESC")
                        .setMaxResults(100)

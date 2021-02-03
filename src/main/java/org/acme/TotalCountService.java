@@ -13,11 +13,11 @@ public class TotalCountService {
     public Long hello() {
         Session session = HibernateUtilWithJavaConfig
                 .getSessionFactory()
-                .openSession();
+                .getCurrentSession();
         var o = session.createQuery("select count(*) from Pro where downloaded=true")
                        .setHint("org.hibernate.cacheable", true)
                        .uniqueResult();
-        session.close();
+        //session.close();
         return (Long) o;
     }
 }

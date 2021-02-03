@@ -20,7 +20,7 @@ public class SearchService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String hello(@PathParam String name) {
-        Session session = HibernateUtilWithJavaConfig.getSessionFactory().openSession();
+        Session session = HibernateUtilWithJavaConfig.getSessionFactory().getCurrentSession();
 
         val cb   = session.getCriteriaBuilder();
         val cr   = cb.createQuery(Pro.class);
@@ -38,7 +38,7 @@ public class SearchService {
         query.setHint("org.hibernate.cacheable", true);
         query.setCacheable(true);
         List<Pro> list = query.list();
-        session.close();
+        /*   session.close();*/
 
         var object = list.stream().map(l -> new DataObjectPro(l.getId(), 1, Base64.fromId(l.getId()))).toArray();
         return new Gson().toJson(object);
