@@ -23,12 +23,6 @@ public class Pro {
     private boolean downloaded = true;
     @Basic @Column(name = "views")
     private int     views;
-    @Basic @Column(name = "tag")
-    private String  tag;
-    private String  sha        = Base64.fromId(id);
-    public String getSha() {
-        return Base64.fromId(id);
-    }
     public String getSuffix() {
         return ".jpg";
     }

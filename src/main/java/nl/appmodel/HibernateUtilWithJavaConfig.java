@@ -1,5 +1,6 @@
 package nl.appmodel;
 
+import com.google.common.base.Stopwatch;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
@@ -9,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 @Slf4j
 public class HibernateUtilWithJavaConfig {
     private static final SessionFactory sessionFactory = buildSessionFactory();
@@ -38,11 +40,27 @@ public class HibernateUtilWithJavaConfig {
             return new Configuration()
                     .setProperties(properties)
                     .addAnnotatedClass(Pro.class)
+                    .addAnnotatedClass(ProTags.class)
+                    .addAnnotatedClass(Tags.class)
                     .buildSessionFactory();
         } catch (Throwable ex) {
             log.error("SessionFactory build failed :", ex);
             throw new ExceptionInInitializerError(ex);
         }
+    }
+    public interface Transact<X> {
+        X run(Session session);
+    }
+    public static <X> X session(String name, Transact<X> run) {
+        Stopwatch sw             = Stopwatch.createStarted();
+        var       currentSession = sessionFactory.openSession();
+        currentSession.getTransaction().begin();
+        currentSession.setDefaultReadOnly(true);
+        X x = run.run(currentSession);
+        currentSession.clear();
+        currentSession.close();
+        log.info("Query [{}] took [{}]ms", name, sw.elapsed(TimeUnit.MILLISECONDS));
+        return x;
     }
     public static Session getSession() {
         var currentSession = sessionFactory.getCurrentSession();
