@@ -4,9 +4,10 @@ import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import nl.appmodel.Base64;
 import nl.appmodel.DataObjectPro;
-import nl.appmodel.HibernateUtilWithJavaConfig;
 import nl.appmodel.Pro;
+import nl.appmodel.QuarkusHibernateUtil;
 import org.hibernate.query.Query;
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -15,6 +16,7 @@ import java.util.List;
 @Slf4j
 @Path("/lookup/{name}")
 public class LookupService {
+    @Inject QuarkusHibernateUtil util;
     /*
     val     cb      = session.getCriteriaBuilder();
        val     cr      = cb.createQuery(Pro.class);
@@ -29,11 +31,12 @@ public class LookupService {
        cr.where(cb.and(predDownloaded, predLike));
        Query<Pro> query = session.createQuery(cr);
        */
-    @javax.ws.rs.PathParam("name") private String name;
+    @javax.ws.rs.PathParam("name")
+    private String               name;
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String hello() {
-        Object[] x = HibernateUtilWithJavaConfig.session("lookup/" + name, s -> {
+        Object[] x = util.session("lookup/" + name, s -> {
             var sql_old = "SELECT * from pro p join pro_tags pt on pt.pro=p.id join tags t on  t.id=pt.tag where t.name=:name and p.downloaded=1 order by p.views desc";
             var sql = "SELECT pro_id as id,downloaded,ref,p.views as views,thumbs from promyis p " +
                       "join pro_tags pt on pt.pro=p.pro_id " +

@@ -4,9 +4,10 @@ import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import nl.appmodel.Base64;
 import nl.appmodel.DataObjectPro;
-import nl.appmodel.HibernateUtilWithJavaConfig;
 import nl.appmodel.Pro;
+import nl.appmodel.QuarkusHibernateUtil;
 import org.hibernate.query.Query;
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -16,10 +17,11 @@ import java.util.List;
 @Path("/search")
 public class PopularService {
     Gson gson = new Gson();
+    @Inject QuarkusHibernateUtil util;
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String hello() {
-        Object[] x = HibernateUtilWithJavaConfig.session("/search", s -> {
+        Object[] x = util.session("/search", s -> {
        /*     val cb   = session.getCriteriaBuilder();
             val cr   = cb.createQuery(Pro.class);
             val root = cr.from(Pro.class);
