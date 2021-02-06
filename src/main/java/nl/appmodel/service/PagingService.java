@@ -1,4 +1,4 @@
-package org.acme;
+package nl.appmodel.service;
 
 import lombok.extern.slf4j.Slf4j;
 import nl.appmodel.QuarkusHibernateUtil;

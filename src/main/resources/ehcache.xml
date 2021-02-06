@@ -1,7 +1,6 @@
 <ehcache>
     <defaultCache
-            name="defaut"
-            maxElementsInMemory="1000000"
+            maxElementsInMemory="100000"
             eternal="false"
             timeToIdleSeconds="300"
             timeToLiveSeconds="300"
@@ -14,4 +13,15 @@
            timeToLiveSeconds="300"
            maxElementsInMemory="1000000"
     />
+    <cache name="nl.appmodel.ProTags"
+           timeToIdleSeconds="300"
+           timeToLiveSeconds="300"
+           maxElementsInMemory="100000"
+    />
+    <cache name="nl.appmodel.Tags"
+           timeToIdleSeconds="300"
+           timeToLiveSeconds="300"
+           maxElementsInMemory="100000"
+    />
+
 </ehcache>

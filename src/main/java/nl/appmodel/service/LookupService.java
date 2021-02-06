@@ -1,4 +1,4 @@
-package org.acme;
+package nl.appmodel.service;
 
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
