@@ -1,7 +1,9 @@
 package nl.appmodel;
 
 import com.google.common.base.Stopwatch;
+import io.quarkus.runtime.Startup;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,16 +15,13 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 @Slf4j
 @Singleton
+@Startup
 public class QuarkusHibernateUtil {
     @ConfigProperty(name = "db_schema", defaultValue = "prosite")
     String db_schema;
     private SessionFactory sessionFactory;
-    /*     var                instance   = CacheManager.getInstance();
-        var                cacheNames = instance.getCacheNames();
-        Cache              c          = instance.getCache("nl.appmodel.Pro");
-        CacheConfiguration config     = c.getCacheConfiguration();*/
     @PostConstruct
-    public void test() {
+    public void startup() {
         log.info("Setting up hibernate. Got: db_schema: [{}]", db_schema);
         var properties = new Properties();
         properties.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
@@ -50,8 +49,8 @@ public class QuarkusHibernateUtil {
         X run(Session session);
     }
     public <X> X session(String name, Transact<X> run) {
-        Stopwatch sw             = Stopwatch.createStarted();
-        var       currentSession = sessionFactory.openSession();
+        val sw             = Stopwatch.createStarted();
+        var currentSession = sessionFactory.openSession();
         currentSession.getTransaction().begin();
         currentSession.setDefaultReadOnly(true);
         X x = run.run(currentSession);

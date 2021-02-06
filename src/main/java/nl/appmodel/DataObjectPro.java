@@ -12,4 +12,6 @@ public class DataObjectPro {
     long   id;
     int    n;
     String sha;
+    String header;
+    String embed;
 }

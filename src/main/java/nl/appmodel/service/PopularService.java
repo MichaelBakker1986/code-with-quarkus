@@ -36,7 +36,7 @@ public class PopularService {
             List<Pro> list = query.list();
             return list.stream().map(l -> new DataObjectPro(l.getId(), 1, Base64.fromId(l.getId()))).toArray();*/
 
-            var sql = "SELECT pro_id as id,downloaded,ref,p.views as views,thumbs from promyis p " +
+            var sql = "SELECT pro_id as id,downloaded,ref,p.views as views,thumbs,header,embed from promyis p " +
                       "join pro pp on pp.id =p.pro_id " +
                       "where pp.downloaded=1";
             Query<Pro> query = s.createNativeQuery(sql, Pro.class);
@@ -45,7 +45,7 @@ public class PopularService {
             query.setHint("org.hibernate.cacheable", true);
             query.setCacheable(true);
             List<Pro> list = query.list();
-            return list.stream().map(l -> new DataObjectPro(l.getId(), 1, Base64.fromId(l.getId()))).toArray();
+            return list.stream().map(l -> new DataObjectPro(l.getId(), 1, Base64.fromId(l.getId()), l.getHeader(), l.getEmbed())).toArray();
         });
         return gson.toJson(x);
     }

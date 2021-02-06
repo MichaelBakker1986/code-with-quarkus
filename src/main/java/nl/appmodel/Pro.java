@@ -1,6 +1,8 @@
 package nl.appmodel;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.EqualsAndHashCode.Include;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -11,9 +13,10 @@ import javax.persistence.*;
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 public class Pro {
-    @Id @GeneratedValue @Column(name = "id")
+    @Id @GeneratedValue @Include @Column(name = "id")
     private long    id;
     @Basic @Column(name = "thumbs")
     private String  thumbs;
@@ -23,6 +26,10 @@ public class Pro {
     private boolean downloaded = true;
     @Basic @Column(name = "views")
     private int     views;
+    @Basic @Column(name = "header")
+    private String  header;
+    @Basic @Column(name = "embed")
+    private String  embed;
     public String getSuffix() {
         return ".jpg";
     }
