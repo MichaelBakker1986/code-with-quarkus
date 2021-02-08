@@ -23,5 +23,14 @@
            timeToLiveSeconds="300"
            maxElementsInMemory="100000"
     />
-
+    <cache name="nl.appmodel.MostUsed"
+           timeToIdleSeconds="300"
+           timeToLiveSeconds="300"
+           maxElementsInMemory="100000"
+    />
+    <cache name="nl.appmodel.MostPopularTags"
+           timeToIdleSeconds="300"
+           timeToLiveSeconds="300"
+           maxElementsInMemory="100000"
+    />
 </ehcache>

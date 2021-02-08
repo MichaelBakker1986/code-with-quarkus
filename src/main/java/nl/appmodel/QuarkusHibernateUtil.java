@@ -25,9 +25,10 @@ public class QuarkusHibernateUtil {
         log.info("Setting up hibernate. Got: db_schema: [{}]", db_schema);
         var properties = new Properties();
         properties.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-        properties.put(Environment.URL, "jdbc:mysql://localhost:3306/" + db_schema + "?serverTimezone=UTC&useSSL=false");
-        properties.put(Environment.USER, "root");
-        properties.put(Environment.PASS, "Welkom01!");
+        properties.put(Environment.URL,
+                       "jdbc:mysql://127.0.0.1:3306/" + db_schema + "?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true");
+        properties.put(Environment.USER, "read_only");
+        properties.put(Environment.PASS, "Welkom02!");
         properties.put(Environment.FORMAT_SQL, "false");
         properties.put(Environment.DIALECT, "org.hibernate.dialect.MySQL8Dialect");
         properties.put(Environment.SHOW_SQL, "true");
@@ -37,12 +38,15 @@ public class QuarkusHibernateUtil {
         properties.put(Environment.USE_QUERY_CACHE, true);
         properties.put(Environment.USE_SECOND_LEVEL_CACHE, true);
         properties.put(Environment.JPA_SHARED_CACHE_MODE, "ALL");
+        properties.put("hibernate.cache.ehcache.missing_cache_strategy", "create");
         properties.put(Environment.CACHE_REGION_FACTORY, "org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory");
         sessionFactory = new Configuration()
                 .setProperties(properties)
                 .addAnnotatedClass(Pro.class)
                 .addAnnotatedClass(ProTags.class)
                 .addAnnotatedClass(Tags.class)
+                .addAnnotatedClass(MostUsed.class)
+                .addAnnotatedClass(MostPopularTags.class)
                 .buildSessionFactory();
     }
     public interface Transact<X> {
