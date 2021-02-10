@@ -20,8 +20,6 @@ public class Pro {
     private long    id;
     @Basic @Column(name = "thumbs")
     private String  thumbs;
-    @Basic @Column(name = "ref")
-    private byte[]  ref;
     @Basic @Column(name = "downloaded", nullable = false)
     private boolean downloaded = true;
     @Basic @Column(name = "views")

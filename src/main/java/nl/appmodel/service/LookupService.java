@@ -38,7 +38,7 @@ public class LookupService {
     public String hello() {
         Object[] x = util.session("lookup/" + name, s -> {
             var sql_old = "SELECT * from pro p join pro_tags pt on pt.pro=p.id join tags t on  t.id=pt.tag where t.name=:name and p.downloaded=1 order by p.views desc";
-            var sql = "SELECT pro_id as id,downloaded,ref,p.views as views,thumbs,header,embed from promyis p " +
+            var sql = "SELECT pro_id as id,downloaded,p.views as views,thumbs,header,embed from promyis p " +
                       "join pro_tags pt on pt.pro=p.pro_id " +
                       "join tags t on t.id=pt.tag " +
                       "join pro pp on pp.id =p.pro_id " +
