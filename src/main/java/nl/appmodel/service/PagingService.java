@@ -11,7 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 @Slf4j
-@Path("/Page/{name}")
+@Path("/api/Page/{name}")
 public class PagingService {
     @javax.ws.rs.PathParam("name") private String               name;
     @Inject                                QuarkusHibernateUtil util;
@@ -31,15 +31,6 @@ public class PagingService {
             MostUsed list = query.uniqueResult();
             if (list == null) return 0L;
             return (long) list.getUsed();
-           /* return ((Number) s.createQuery("SELECT count(*) from Pro p " +
-                                           "join ProTags pt on pt.pro=p.id " +
-                                           "join Tags t on  t.id=pt.tag " +
-                                           "where p.downloaded=true " +
-                                           "and t.name=:name")
-                              .setParameter("name", name)
-                              .setReadOnly(true)
-                              .setCacheable(true)
-                              .uniqueResult()).longValue();*/
         });
     }
 }

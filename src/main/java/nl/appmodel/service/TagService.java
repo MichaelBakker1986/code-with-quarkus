@@ -10,7 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 @Slf4j
-@Path("/tags")
+@Path("/api/tags")
 public class TagService {
     @Inject QuarkusHibernateUtil util;
     @GET

@@ -8,7 +8,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 @Slf4j
-@Path("/total")
+@Path("/api/total")
 public class TotalCountService {
     @Inject QuarkusHibernateUtil util;
     @GET

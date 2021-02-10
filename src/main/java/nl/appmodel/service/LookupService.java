@@ -14,7 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 @Slf4j
-@Path("/lookup/{name}")
+@Path("/api/lookup/{name}")
 public class LookupService {
     @Inject QuarkusHibernateUtil util;
     /*
@@ -37,7 +37,6 @@ public class LookupService {
     @Produces(MediaType.APPLICATION_JSON)
     public String hello() {
         Object[] x = util.session("lookup/" + name, s -> {
-            var sql_old = "SELECT * from pro p join pro_tags pt on pt.pro=p.id join tags t on  t.id=pt.tag where t.name=:name and p.downloaded=1 order by p.views desc";
             var sql = "SELECT pro_id as id,downloaded,p.views as views,thumbs,header,embed from promyis p " +
                       "join pro_tags pt on pt.pro=p.pro_id " +
                       "join tags t on t.id=pt.tag " +
@@ -47,7 +46,7 @@ public class LookupService {
             Query<Pro> query = s.createNativeQuery(sql, Pro.class);
             query.setParameter("name", name);
             query.setReadOnly(true);
-            query.setMaxResults(50);
+            query.setMaxResults(52);
             query.setHint("org.hibernate.cacheable", true);
             query.setCacheable(true);
             List<Pro> list = query.list();

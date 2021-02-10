@@ -12,41 +12,33 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.Arrays;
 import java.util.List;
 @Slf4j
-@Path("/search")
+@Path("/api/search")
 public class PopularService {
-    Gson gson = new Gson();
     @Inject QuarkusHibernateUtil util;
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String hello() {
-        Object[] x = util.session("/search", s -> {
-       /*     val cb   = session.getCriteriaBuilder();
-            val cr   = cb.createQuery(Pro.class);
-            val root = cr.from(Pro.class);
-            cr.select(root);
-            cr.orderBy(cb.desc(root.get("views")));
-            cr.where(cb.equal(root.get("downloaded"), true));
-            Query<Pro> query = session.createQuery(cr);
-            query.setMaxResults(50);
-            query.setReadOnly(true);
-            query.setHint("org.hibernate.cacheable", true);
-            query.setCacheable(true);
-            List<Pro> list = query.list();
-            return list.stream().map(l -> new DataObjectPro(l.getId(), 1, Base64.fromId(l.getId()))).toArray();*/
-
-            var sql = "SELECT pro_id as id,downloaded,p.views as views,thumbs,header,embed from promyis p " +
-                      "join pro pp on pp.id =p.pro_id " +
-                      "where pp.downloaded=1";
-            Query<Pro> query = s.createNativeQuery(sql, Pro.class);
-            query.setReadOnly(true);
-            query.setMaxResults(50);
-            query.setHint("org.hibernate.cacheable", true);
-            query.setCacheable(true);
-            List<Pro> list = query.list();
-            return list.stream().map(l -> new DataObjectPro(l.getId(), 1, Base64.fromId(l.getId()), l.getHeader(), l.getEmbed())).toArray();
-        });
-        return gson.toJson(x);
+        try {
+            Object[] x = util.session("/search", s -> {
+                var sql = "SELECT pro_id as id,downloaded,p.views as views,thumbs,header,embed from promyis p " +
+                          "join pro pp on pp.id =p.pro_id " +
+                          "where pp.downloaded=1";
+                Query<Pro> query = s.createNativeQuery(sql, Pro.class);
+                query.setReadOnly(true);
+                query.setMaxResults(52);
+                query.setHint("org.hibernate.cacheable", true);
+                query.setCacheable(true);
+                List<Pro> list = query.list();
+                return list.stream().map(l -> new DataObjectPro(l.getId(), 1, Base64.fromId(l.getId()), l.getHeader(), l.getEmbed()))
+                           .toArray();
+            });
+            return new Gson().toJson(x);
+        } catch (Exception e) {
+            log.error("ERROR", e);
+            return new Gson().toJson(Arrays.asList());
+        }
     }
 }

@@ -10,13 +10,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @RequiredArgsConstructor
 public class MostPopularTags {
     @Id @NonNull long tag_id;
     @Column      long popularity;
-    
-    /*@OneToOne
-    @PrimaryKeyJoinColumn
-    private      Tags tag;*/
 }

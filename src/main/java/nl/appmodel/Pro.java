@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Table(name = "pro", schema = "prosite")
 @Slf4j
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
@@ -28,12 +28,4 @@ public class Pro {
     private String  header;
     @Basic @Column(name = "embed")
     private String  embed;
-    public String getSuffix() {
-        return ".jpg";
-    }
-    public String getFileName() {
-        var s        = thumbs.split("[,;]")[0];
-        var filename = s.substring(s.lastIndexOf("/") + 1);
-        return filename.substring(0, filename.length() - 4);
-    }
 }
