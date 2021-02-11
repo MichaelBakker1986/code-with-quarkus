@@ -26,7 +26,7 @@ public class QuarkusHibernateUtil {
         var properties = new Properties();
         properties.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
         properties.put(Environment.URL,
-                       "jdbc:mysql://127.0.0.1:3306/" + db_schema + "?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true");
+                       "jdbc:mysql://db.internal.me:3306/" + db_schema + "?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true");
         properties.put(Environment.USER, "read_only");
         properties.put(Environment.PASS, "Welkom02!");
         properties.put(Environment.FORMAT_SQL, "false");
