@@ -36,6 +36,7 @@ public class PagingService {
                 return (long) list.getUsed();
             })).build();
         } catch (Exception e) {
+            log.error("ERROR", e);
             return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }
     }

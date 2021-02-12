@@ -17,15 +17,16 @@ public class TotalCountService {
     @Produces(MediaType.TEXT_PLAIN)
     public Response total() {
         try {
-            return Response.ok(util
-                                       .session("/total", session -> session
-                                               //select count(*) from Pro where downloaded=true
-                                               .createQuery("select SUM(downloaded) from Host")
-                                               .setReadOnly(true)
-                                               .setCacheable(true)
-                                               .setHint("org.hibernate.cacheable", true)
-                                               .uniqueResult())).build();
+            return Response
+                    .ok(util.session("/total", session -> session
+                            //select count(*) from Pro where downloaded=true
+                            .createQuery("select SUM(downloaded) from Host")
+                            .setReadOnly(true)
+                            .setCacheable(true)
+                            .setHint("org.hibernate.cacheable", true)
+                            .uniqueResult())).build();
         } catch (Exception e) {
+            log.error("ERROR", e);
             return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }
     }

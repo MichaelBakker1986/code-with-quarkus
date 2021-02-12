@@ -57,6 +57,7 @@ public class LookupService {
             });
             return Response.ok(x).build();
         } catch (Exception e) {
+            log.error("ERROR", e);
             return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }
     }

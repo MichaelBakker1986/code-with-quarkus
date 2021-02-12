@@ -38,6 +38,7 @@ public class TagService {
                 return query1.list();
             })).build();
         } catch (Exception e) {
+            log.error("ERROR", e);
             return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }
     }
