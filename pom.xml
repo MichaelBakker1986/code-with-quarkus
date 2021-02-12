@@ -19,8 +19,8 @@
     </properties>
     <scm>
         <developerConnection>scm:git:https://github.com/MichaelBakker1986/prosite/master</developerConnection>
-      <tag>quarkus-endpoint-2.0.0</tag>
-  </scm>
+        <tag>quarkus-endpoint-2.0.1</tag>
+    </scm>
     <dependencyManagement>
         <dependencies>
             <dependency>
