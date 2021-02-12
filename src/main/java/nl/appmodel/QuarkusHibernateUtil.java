@@ -46,6 +46,7 @@ public class QuarkusHibernateUtil {
                 .addAnnotatedClass(ProTags.class)
                 .addAnnotatedClass(Tags.class)
                 .addAnnotatedClass(MostUsed.class)
+                .addAnnotatedClass(Host.class)
                 .addAnnotatedClass(MostPopularTags.class)
                 .buildSessionFactory();
     }

@@ -10,6 +10,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 @Slf4j
 @Path("/api/Page/{name}")
 public class PagingService {
@@ -17,20 +19,24 @@ public class PagingService {
     @Inject                                QuarkusHibernateUtil util;
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public Long hello() {
-        return util.session("Page/" + name, s -> {
-            val cb   = s.getCriteriaBuilder();
-            val cr   = cb.createQuery(MostUsed.class);
-            val root = cr.from(MostUsed.class);
-            cr.select(root);
-            cr.where(cb.equal(root.get("name"), name));
-            Query<MostUsed> query = s.createQuery(cr);
-            query.setMaxResults(1);
-            query.setReadOnly(true);
-            query.setCacheable(true);
-            MostUsed list = query.uniqueResult();
-            if (list == null) return 0L;
-            return (long) list.getUsed();
-        });
+    public Response hello() {
+        try {
+            return Response.ok(util.session("Page/" + name, s -> {
+                val cb   = s.getCriteriaBuilder();
+                val cr   = cb.createQuery(MostUsed.class);
+                val root = cr.from(MostUsed.class);
+                cr.select(root);
+                cr.where(cb.equal(root.get("name"), name));
+                Query<MostUsed> query = s.createQuery(cr);
+                query.setMaxResults(1);
+                query.setReadOnly(true);
+                query.setCacheable(true);
+                MostUsed list = query.uniqueResult();
+                if (list == null) return 0L;
+                return (long) list.getUsed();
+            })).build();
+        } catch (Exception e) {
+            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

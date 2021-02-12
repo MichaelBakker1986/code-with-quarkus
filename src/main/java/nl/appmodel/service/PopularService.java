@@ -1,6 +1,5 @@
 package nl.appmodel.service;
 
-import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import nl.appmodel.Base64;
 import nl.appmodel.DataObjectPro;
@@ -12,7 +11,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.Arrays;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import java.util.List;
 @Slf4j
 @Path("/api/search")
@@ -20,7 +20,7 @@ public class PopularService {
     @Inject QuarkusHibernateUtil util;
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String hello() {
+    public Response hello() {
         try {
             Object[] x = util.session("/search", s -> {
                 var sql = "SELECT pro_id as id,downloaded,p.views as views,thumbs,header,embed from promyis p " +
@@ -35,10 +35,10 @@ public class PopularService {
                 return list.stream().map(l -> new DataObjectPro(l.getId(), 1, Base64.fromId(l.getId()), l.getHeader(), l.getEmbed()))
                            .toArray();
             });
-            return new Gson().toJson(x);
+            return Response.ok(x).build();
         } catch (Exception e) {
             log.error("ERROR", e);
-            return new Gson().toJson(Arrays.asList());
+            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }
     }
 }
