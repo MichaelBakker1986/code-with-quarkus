@@ -18,7 +18,7 @@
         <surefire-plugin.version>2.22.1</surefire-plugin.version>
     </properties>
     <scm>
-        <developerConnection>scm:git:https://github.com/MichaelBakker1986/prosite/master</developerConnection>
+        <developerConnection>scm:git:https://github.com/MichaelBakker1986/prosite</developerConnection>
     </scm>
     <dependencyManagement>
         <dependencies>
