@@ -6,22 +6,22 @@ import nl.appmodel.MostUsed;
 import nl.appmodel.QuarkusHibernateUtil;
 import org.hibernate.query.Query;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 @Slf4j
-@Path("/api/Page/{name}")
+@Path("/api/Page/page-{name}")
 public class PagingService {
     @javax.ws.rs.PathParam("name") private String               name;
     @Inject                                QuarkusHibernateUtil util;
-    @GET
+    @POST
     @Produces(MediaType.TEXT_PLAIN)
     public Response hello() {
         try {
-            return Response.ok(util.session("Page/" + name, s -> {
+            return Response.ok(util.session("Page/page-" + name, s -> {
                 val cb   = s.getCriteriaBuilder();
                 val cr   = cb.createQuery(MostUsed.class);
                 val root = cr.from(MostUsed.class);
