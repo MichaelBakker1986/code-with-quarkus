@@ -9,8 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @AllArgsConstructor
 public class DataObjectPro {
-    long   id;
-    int    n;
+    transient long id;
+    transient int  n;
     String sha;
     String header;
     String embed;

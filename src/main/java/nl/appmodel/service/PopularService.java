@@ -28,7 +28,7 @@ public class PopularService {
                           "where pp.downloaded=1";
                 Query<Pro> query = s.createNativeQuery(sql, Pro.class);
                 query.setReadOnly(true);
-                query.setMaxResults(52);
+                query.setMaxResults(32);
                 query.setHint("org.hibernate.cacheable", true);
                 query.setCacheable(true);
                 List<Pro> list = query.list();

@@ -48,7 +48,7 @@ public class LookupService {
                 Query<Pro> query = s.createNativeQuery(sql, Pro.class);
                 query.setParameter("name", name);
                 query.setReadOnly(true);
-                query.setMaxResults(52);
+                query.setMaxResults(32);
                 query.setHint("org.hibernate.cacheable", true);
                 query.setCacheable(true);
                 List<Pro> list = query.list();
