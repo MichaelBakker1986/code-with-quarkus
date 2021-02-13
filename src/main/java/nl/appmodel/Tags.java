@@ -18,4 +18,5 @@ public class Tags {
     @Id @GeneratedValue
     @Include @Column long   id;
     @NonNull @Column String name;
+    @Column          long   popularity;
 }

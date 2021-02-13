@@ -4,15 +4,14 @@ import lombok.extern.slf4j.Slf4j;
 import nl.appmodel.QuarkusHibernateUtil;
 import nl.appmodel.Tags;
 import javax.inject.Inject;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 @Slf4j
-@Path("/api/tags")
+@Path("/api/tags/{best}")
 public class TagService {
+    @PathParam("best") @DefaultValue("10") private int                  best;
     /*val cb   = s.getCriteriaBuilder();
  val cr   = cb.createQuery(MostPopularTags.class);
  val root = cr.from(MostPopularTags.class);
@@ -23,16 +22,16 @@ public class TagService {
  query.setReadOnly(true);
  query.setCacheable(true);
  var list   = query.list();*/
-    @Inject QuarkusHibernateUtil util;
-    @POST
+    @Inject                                        QuarkusHibernateUtil util;
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response tags() {
         try {
             return Response.ok(util.session("tags", s -> {
                 var query1 = s.createNativeQuery(
-                        "select id,LOWER(name) as name From prosite.most_popular mt inner join tags t on mt.tag_id = t.id  order by mt.popularity desc",
+                        "select id,LOWER(name) as name,popularity From prosite.most_popular mt inner join tags t on mt.tag_id = t.id  order by mt.popularity desc",
                         Tags.class);
-                query1.setMaxResults(10);
+                query1.setMaxResults(best);
                 query1.setReadOnly(true);
                 query1.setCacheable(true);
                 return query1.list();
