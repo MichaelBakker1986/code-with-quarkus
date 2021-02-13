@@ -2,35 +2,40 @@
     <defaultCache
             maxElementsInMemory="100000"
             eternal="false"
-            timeToIdleSeconds="300"
-            timeToLiveSeconds="300"
+            timeToIdleSeconds="3000"
+            timeToLiveSeconds="3000"
             overflowToDisk="false"
             diskPersistent="false"
             memoryStoreEvictionPolicy="LRU"
     />
     <cache name="nl.appmodel.Pro"
-           timeToIdleSeconds="300"
-           timeToLiveSeconds="300"
+           timeToIdleSeconds="3000"
+           timeToLiveSeconds="3000"
            maxElementsInMemory="1000000"
     />
     <cache name="nl.appmodel.ProTags"
-           timeToIdleSeconds="300"
-           timeToLiveSeconds="300"
+           timeToIdleSeconds="3000"
+           timeToLiveSeconds="3000"
            maxElementsInMemory="100000"
     />
     <cache name="nl.appmodel.Tags"
-           timeToIdleSeconds="300"
-           timeToLiveSeconds="300"
+           timeToIdleSeconds="3000"
+           timeToLiveSeconds="3000"
            maxElementsInMemory="100000"
     />
     <cache name="nl.appmodel.MostUsed"
-           timeToIdleSeconds="300"
-           timeToLiveSeconds="300"
+           timeToIdleSeconds="3000"
+           timeToLiveSeconds="3000"
            maxElementsInMemory="100000"
     />
     <cache name="nl.appmodel.MostPopularTags"
-           timeToIdleSeconds="300"
-           timeToLiveSeconds="300"
+           timeToIdleSeconds="3000"
+           timeToLiveSeconds="3000"
            maxElementsInMemory="100000"
+    />
+    <cache name="nl.appmodel.Host"
+           timeToIdleSeconds="3000"
+           timeToLiveSeconds="3000"
+           maxElementsInMemory="100"
     />
 </ehcache>

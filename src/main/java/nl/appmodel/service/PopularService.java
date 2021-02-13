@@ -6,6 +6,7 @@ import nl.appmodel.DataObjectPro;
 import nl.appmodel.Pro;
 import nl.appmodel.QuarkusHibernateUtil;
 import org.hibernate.query.Query;
+import org.jboss.resteasy.annotations.cache.Cache;
 import javax.inject.Inject;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -19,6 +20,7 @@ import java.util.List;
 public class PopularService {
     @Inject QuarkusHibernateUtil util;
     @POST
+    @Cache(maxAge = 3600)
     @Produces({MediaType.APPLICATION_JSON})
     public Response hello() {
         try {

@@ -5,6 +5,7 @@ import lombok.val;
 import nl.appmodel.MostUsed;
 import nl.appmodel.QuarkusHibernateUtil;
 import org.hibernate.query.Query;
+import org.jboss.resteasy.annotations.cache.Cache;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -19,6 +20,7 @@ public class PagingService {
     @PathParam("name") private String               name;
     @Inject                    QuarkusHibernateUtil util;
     @GET
+    @Cache(maxAge = 3600)
     @Produces(MediaType.TEXT_PLAIN)
     public Response hello() {
         try {

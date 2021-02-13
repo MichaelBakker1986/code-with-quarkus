@@ -2,6 +2,7 @@ package nl.appmodel.service;
 
 import lombok.extern.slf4j.Slf4j;
 import nl.appmodel.QuarkusHibernateUtil;
+import org.jboss.resteasy.annotations.cache.Cache;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -14,6 +15,7 @@ import javax.ws.rs.core.Response.Status;
 public class TotalCountService {
     @Inject QuarkusHibernateUtil util;
     @GET
+    @Cache(maxAge = 3600)
     @Produces(MediaType.TEXT_PLAIN)
     public Response total() {
         try {
