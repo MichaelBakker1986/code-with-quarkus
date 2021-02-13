@@ -6,7 +6,7 @@ import nl.appmodel.MostUsed;
 import nl.appmodel.QuarkusHibernateUtil;
 import org.hibernate.query.Query;
 import javax.inject.Inject;
-import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -17,7 +17,7 @@ import javax.ws.rs.core.Response.Status;
 public class PagingService {
     @javax.ws.rs.PathParam("name") private String               name;
     @Inject                                QuarkusHibernateUtil util;
-    @POST
+    @GET
     @Produces(MediaType.TEXT_PLAIN)
     public Response hello() {
         try {

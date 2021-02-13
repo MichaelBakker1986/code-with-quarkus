@@ -3,7 +3,7 @@ package nl.appmodel.service;
 import lombok.extern.slf4j.Slf4j;
 import nl.appmodel.QuarkusHibernateUtil;
 import javax.inject.Inject;
-import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response.Status;
 @Path("/api/total")
 public class TotalCountService {
     @Inject QuarkusHibernateUtil util;
-    @POST
+    @GET
     @Produces(MediaType.TEXT_PLAIN)
     public Response total() {
         try {
