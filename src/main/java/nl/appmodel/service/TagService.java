@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import nl.appmodel.QuarkusHibernateUtil;
 import nl.appmodel.Tags;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -24,7 +24,7 @@ public class TagService {
  query.setCacheable(true);
  var list   = query.list();*/
     @Inject QuarkusHibernateUtil util;
-    @GET
+    @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response tags() {
         try {
