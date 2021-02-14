@@ -15,7 +15,7 @@
         <shared-cache-mode>ALL</shared-cache-mode>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/prosite"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://db.internal.me:3306/prosite"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
             <property name="javax.persistence.jdbc.user" value="read_user"/>
             <property name="javax.persistence.jdbc.password" value="Welkom02!"/>
