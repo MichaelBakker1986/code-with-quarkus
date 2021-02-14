@@ -1,4 +1,4 @@
-package nl.appmodel;
+package nl.appmodel.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

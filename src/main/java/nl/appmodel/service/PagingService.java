@@ -3,7 +3,6 @@ package nl.appmodel.service;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import nl.appmodel.MostUsed;
-import nl.appmodel.QuarkusHibernateUtil;
 import org.hibernate.query.Query;
 import org.jboss.resteasy.annotations.cache.Cache;
 import javax.inject.Inject;
@@ -24,7 +23,7 @@ public class PagingService {
     @Produces(MediaType.TEXT_PLAIN)
     public Response hello() {
         try {
-            return Response.ok(util.session("Page/page-" + name, s -> {
+            return Response.ok(util.session(s -> {
                 val cb   = s.getCriteriaBuilder();
                 val cr   = cb.createQuery(MostUsed.class);
                 val root = cr.from(MostUsed.class);

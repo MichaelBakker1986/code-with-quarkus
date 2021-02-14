@@ -1,7 +1,6 @@
 package nl.appmodel.service;
 
 import lombok.extern.slf4j.Slf4j;
-import nl.appmodel.QuarkusHibernateUtil;
 import org.jboss.resteasy.annotations.cache.Cache;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -20,7 +19,7 @@ public class TotalCountService {
     public Response total() {
         try {
             return Response
-                    .ok(util.session("/total", session -> session
+                    .ok(util.session(session -> session
                             //select count(*) from Pro where downloaded=true
                             .createQuery("select SUM(downloaded) from Host")
                             .setReadOnly(true)

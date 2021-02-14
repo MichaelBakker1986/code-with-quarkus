@@ -1,4 +1,4 @@
-package nl.appmodel;
+package nl.appmodel.service;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;

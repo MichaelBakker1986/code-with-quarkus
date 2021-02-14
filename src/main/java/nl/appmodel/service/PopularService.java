@@ -1,10 +1,9 @@
 package nl.appmodel.service;
 
 import lombok.extern.slf4j.Slf4j;
-import nl.appmodel.Base64;
 import nl.appmodel.DataObjectPro;
 import nl.appmodel.Pro;
-import nl.appmodel.QuarkusHibernateUtil;
+import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.jboss.resteasy.annotations.cache.Cache;
 import javax.inject.Inject;
@@ -19,12 +18,13 @@ import java.util.List;
 @Path("/api/search")
 public class PopularService {
     @Inject QuarkusHibernateUtil util;
+    @Inject Session              session;
     @POST
     @Cache(maxAge = 3600)
     @Produces({MediaType.APPLICATION_JSON})
     public Response hello() {
         try {
-            Object[] x = util.session("/search", s -> {
+            Object[] x = util.session(s -> {
                 var sql = "SELECT pro_id as id,downloaded,p.views as views,thumbs,header,embed from promyis p " +
                           "join pro pp on pp.id =p.pro_id " +
                           "where pp.downloaded=1";
