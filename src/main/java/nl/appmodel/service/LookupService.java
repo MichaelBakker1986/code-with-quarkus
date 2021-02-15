@@ -4,12 +4,14 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import nl.appmodel.DataObjectPro;
 import nl.appmodel.Pro;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.jboss.resteasy.annotations.cache.Cache;
 import javax.inject.Inject;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -18,12 +20,12 @@ import java.util.List;
 @Slf4j
 @Path("/api/lookup/{name}")
 public class LookupService {
-    @Inject Session              s;
-    @javax.ws.rs.PathParam("name")
-    private String               name;
+    @Inject            Session s;
+    @PathParam("name") String  name;
     @POST
     @Cache(maxAge = 3600)
     @Produces(MediaType.APPLICATION_JSON)
+    @Tag(name = "Pro calls", description = "LookupService operations.")
     public Response hello() {
         try {
             s.setDefaultReadOnly(true);

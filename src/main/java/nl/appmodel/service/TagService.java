@@ -12,8 +12,9 @@ import javax.ws.rs.core.Response;
 @Slf4j
 @Path("/api/tags/{best}")
 public class TagService {
-    @PathParam("best") @DefaultValue("10") private int     best;
-    @Inject                                        Session s;
+    @PathParam("best") @DefaultValue("10")
+    int best;
+    @Inject Session s;
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Cache(maxAge = 43200)

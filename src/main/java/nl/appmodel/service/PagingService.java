@@ -3,6 +3,7 @@ package nl.appmodel.service;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import nl.appmodel.MostUsed;
+import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.jboss.resteasy.annotations.cache.Cache;
 import javax.inject.Inject;
@@ -12,34 +13,26 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 @Slf4j
-@Path("/api/Page/page-{name}")
+@Path("/api/page/{name}")
 public class PagingService {
-    @PathParam("name") private String               name;
-    @Inject                    QuarkusHibernateUtil util;
+    @PathParam("name") String  name;
+    @Inject            Session s;
     @GET
     @Cache(maxAge = 3600)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response hello() {
-        try {
-            return Response.ok(util.session(s -> {
-                val cb   = s.getCriteriaBuilder();
-                val cr   = cb.createQuery(MostUsed.class);
-                val root = cr.from(MostUsed.class);
-                cr.select(root);
-                cr.where(cb.equal(root.get("name"), name));
-                Query<MostUsed> query = s.createQuery(cr);
-                query.setMaxResults(1);
-                query.setReadOnly(true);
-                query.setCacheable(true);
-                MostUsed list = query.uniqueResult();
-                if (list == null) return 0L;
-                return (long) list.getUsed();
-            })).build();
-        } catch (Exception e) {
-            log.error("ERROR", e);
-            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
-        }
+    public Response page() {
+        val cb   = s.getCriteriaBuilder();
+        val cr   = cb.createQuery(MostUsed.class);
+        val root = cr.from(MostUsed.class);
+        cr.select(root);
+        cr.where(cb.equal(root.get("name"), name));
+        Query<MostUsed> query = s.createQuery(cr);
+        query.setMaxResults(1);
+        query.setReadOnly(true);
+        query.setCacheable(true);
+        var list = query.uniqueResult();
+        if (list == null) return Response.ok(0L).build();
+        return Response.ok((long) list.getUsed()).build();
     }
 }
