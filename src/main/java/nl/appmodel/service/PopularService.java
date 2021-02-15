@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.jboss.resteasy.annotations.cache.Cache;
 import javax.inject.Inject;
-import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -17,7 +17,7 @@ import java.util.List;
 @Path("/api/search")
 public class PopularService {
     @Inject Session s;
-    @POST
+    @GET
     @Cache(maxAge = 3600)
     @Produces(MediaType.APPLICATION_JSON)
     public Response moseUsed() {

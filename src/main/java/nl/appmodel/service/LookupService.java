@@ -9,7 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.jboss.resteasy.annotations.cache.Cache;
 import javax.inject.Inject;
-import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -22,7 +22,7 @@ import java.util.List;
 public class LookupService {
     @Inject            Session s;
     @PathParam("name") String  name;
-    @POST
+    @GET
     @Cache(maxAge = 3600)
     @Produces(MediaType.APPLICATION_JSON)
     @Tag(name = "Pro calls", description = "LookupService operations.")
