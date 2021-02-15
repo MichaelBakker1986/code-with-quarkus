@@ -20,7 +20,7 @@ public class TagService {
     @Cache(maxAge = 43200)
     public Response tags() {
         val q = s.createNativeQuery(
-                "select id,LOWER(name) as name,mt.popularity From most_popular mt inner join tags t on mt.tag_id = t.id  order by mt.popularity desc",
+                "select id,LOWER(name) as name,mt.popularity as popularity From most_popular mt inner join tags t on mt.tag_id = t.id  order by mt.popularity desc",
                 Tags.class);
         q.setMaxResults(best);
         q.setReadOnly(true);
