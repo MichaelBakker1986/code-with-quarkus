@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 @Slf4j
-@Path("/api/search")
+@Path("/api/popular")
 public class PopularService {
     @Inject Session s;
     @GET
