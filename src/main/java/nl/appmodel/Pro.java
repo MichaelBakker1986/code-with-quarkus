@@ -17,15 +17,15 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Pro {
     @Id @GeneratedValue @Include @Column(name = "id")
-    private long    id;
+    private long   id;
     @Basic @Column(name = "thumbs")
-    private String  thumbs;
-    @Basic @Column(name = "downloaded", nullable = false)
-    private boolean downloaded = true;
+    private String thumbs;
     @Basic @Column(name = "views")
-    private int     views;
+    private int    views;
     @Basic @Column(name = "header")
-    private String  header;
+    private String header;
     @Basic @Column(name = "embed")
-    private String  embed;
+    private String embed;
+    @Basic @Column(name = "status")
+    private int    status;
 }

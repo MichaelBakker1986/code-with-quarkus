@@ -21,9 +21,9 @@ public class PopularService {
     @Cache(maxAge = 3600)
     @Produces(MediaType.APPLICATION_JSON)
     public Response moseUsed() {
-        var sql = "SELECT pro_id as id,downloaded,p.views as views,thumbs,header,embed from promyis p " +
+        var sql = "SELECT pro_id as id,status,p.views as views,thumbs,header,embed from promyis p " +
                   "join pro pp on pp.id =p.pro_id " +
-                  "where pp.downloaded=1";
+                  "where pp.status=2";
         Query<Pro> query = s.createNativeQuery(sql, Pro.class);
         query.setReadOnly(true);
         query.setMaxResults(32);
