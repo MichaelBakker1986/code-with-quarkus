@@ -20,13 +20,12 @@ import java.util.List;
 @Slf4j
 @Path("/api/lookup/{name}")
 public class LookupService {
-    @Inject            Session s;
-    @PathParam("name") String  name;
+    @Inject Session s;
     @GET
     @Cache(maxAge = 3600)
     @Produces(MediaType.APPLICATION_JSON)
     @Tag(name = "Pro calls", description = "LookupService operations.")
-    public Response hello() {
+    public Response hello(@PathParam("name") String name) {
         try {
             s.setDefaultReadOnly(true);
             var sql = "SELECT pro_id as id,p.views as views,thumbs,header,embed,status from promyis p " +

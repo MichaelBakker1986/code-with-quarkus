@@ -16,12 +16,11 @@ import javax.ws.rs.core.Response;
 @Slf4j
 @Path("/api/page/{name}")
 public class PagingService {
-    @PathParam("name") String  name;
-    @Inject            Session s;
+    @Inject Session s;
     @GET
     @Cache(maxAge = 3600)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response page() {
+    public Response page(@PathParam("name") String name) {
         val cb   = s.getCriteriaBuilder();
         val cr   = cb.createQuery(MostUsed.class);
         val root = cr.from(MostUsed.class);
