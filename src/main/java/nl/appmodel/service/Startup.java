@@ -7,7 +7,7 @@ import javax.enterprise.event.Observes;
 @Slf4j
 @io.quarkus.runtime.Startup
 public class Startup {
-    @ConfigProperty(name = "quarkus.live-reload.url", defaultValue = "http://appmodel-dev.nl/api")
+    @ConfigProperty(name = "quarkus.live-reload.url", defaultValue = "http://appmodel.nl/api")
     String url;
     void onStart(@Observes StartupEvent event) {
         log.info("App started at {}", url);
