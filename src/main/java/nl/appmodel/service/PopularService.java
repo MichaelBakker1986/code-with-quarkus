@@ -18,7 +18,7 @@ import java.util.List;
 public class PopularService {
     @Inject Session s;
     @GET
-    @Cache(maxAge = 3600)
+    @Cache(maxAge = 36000)
     @Produces(MediaType.APPLICATION_JSON)
     public Response moseUsed() {
         var sql = "SELECT pro_id as id,status,p.views as views,thumbs,header,embed from promyis p " +

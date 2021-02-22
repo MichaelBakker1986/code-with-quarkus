@@ -14,7 +14,7 @@ import javax.ws.rs.core.Response;
 public class TotalCountService {
     @Inject Session s;
     @GET
-    @Cache(maxAge = 3600)
+    @Cache(maxAge = 36000)
     @Produces(MediaType.TEXT_PLAIN)
     public Response total() {
         return Response

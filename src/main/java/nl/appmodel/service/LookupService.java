@@ -1,5 +1,6 @@
 package nl.appmodel.service;
 
+import io.quarkus.cache.CacheResult;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import nl.appmodel.DataObjectPro;
@@ -22,9 +23,10 @@ import java.util.List;
 public class LookupService {
     @Inject Session s;
     @GET
-    @Cache(maxAge = 3600)
+    @Cache(maxAge = 36000)
     @Produces(MediaType.APPLICATION_JSON)
     @Tag(name = "Pro calls", description = "LookupService operations.")
+    @CacheResult(cacheName = "lookup-images")
     public Response hello(@PathParam("name") String name) {
         try {
             s.setDefaultReadOnly(true);
