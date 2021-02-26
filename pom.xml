@@ -37,11 +37,18 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
-        <!--        <dependency>
-                    <groupId>mi.mike</groupId>
-                    <artifactId>opencv</artifactId>
-                    <version>1.2-SNAPSHOT</version>
-                </dependency>-->
+        <dependency>
+            <groupId>mi.mike</groupId>
+            <artifactId>opencv</artifactId>
+            <version>1.3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.thegroup</groupId>
+            <artifactId>abc</artifactId>
+            <version>12.6.1</version>
+            <type>zip</type>
+            <classifier>natives-abc</classifier>
+        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jsonb</artifactId>
