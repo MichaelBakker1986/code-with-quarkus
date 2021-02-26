@@ -16,6 +16,7 @@ import java.util.List;
 @Slf4j
 @Path("/api/popular")
 public class PopularService {
+    @SuppressWarnings("CdiInjectionPointsInspection")
     @Inject Session s;
     @GET
     @Cache(maxAge = 36000)
@@ -30,7 +31,7 @@ public class PopularService {
         query.setHint("org.hibernate.cacheable", true);
         query.setCacheable(true);
         List<Pro> list = query.list();
-        Object[] x = list.stream().map(l -> new DataObjectPro(l.getId(), 1, Base64.fromId(l.getId()), l.getHeader(), l.getEmbed()))
+        Object[] x = list.stream().map(l -> new DataObjectPro(l.getId(), 1, NumberBase64.fromId(l.getId()), l.getHeader(), l.getEmbed()))
                          .toArray();
         return Response.ok(x).build();
     }

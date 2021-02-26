@@ -9,7 +9,7 @@ import lombok.val;
 @ToString
 @Getter
 @AllArgsConstructor
-public class Base64 {
+public class NumberBase64 {
     static final String _Rixits =
             //   0       8       16      24      32      40      48      56     63
             //   v       v       v       v       v       v       v       v      v
@@ -36,13 +36,11 @@ public class Base64 {
         long rixit; // like 'digit', only in some non-decimal radix
         var  residual = (long) Math.floor(number);
         val  result   = new StringBuilder();
-        while (true) {
+        do {
             rixit = residual % 64;
             result.insert(0, _Rixits.charAt((int) rixit));
             residual = (long) Math.floor(residual >> 6);
-            if (residual == 0)
-                break;
-        }
+        } while (residual != 0);
         return result.toString();
     }
     static long toNumber(String rixits) {

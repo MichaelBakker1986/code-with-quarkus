@@ -21,6 +21,7 @@ import java.util.List;
 @Slf4j
 @Path("/api/lookup/{name}")
 public class LookupService {
+    @SuppressWarnings("CdiInjectionPointsInspection")
     @Inject Session s;
     @GET
     @Cache(maxAge = 36000)
@@ -43,7 +44,7 @@ public class LookupService {
             q.setHint("org.hibernate.cacheable", true);
             q.setCacheable(true);
             List<Pro> list = q.list();
-            val x = list.stream().map(l -> new DataObjectPro(l.getId(), 1, Base64.fromId(l.getId()), l.getHeader(), l.getEmbed()))
+            val x = list.stream().map(l -> new DataObjectPro(l.getId(), 1, NumberBase64.fromId(l.getId()), l.getHeader(), l.getEmbed()))
                         .toArray();
             return Response.ok(x).build();
         } catch (Exception e) {
