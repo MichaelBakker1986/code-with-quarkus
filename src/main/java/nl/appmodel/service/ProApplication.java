@@ -7,6 +7,7 @@ import org.eclipse.microprofile.openapi.annotations.info.Info;
 import org.eclipse.microprofile.openapi.annotations.info.License;
 import org.eclipse.microprofile.openapi.annotations.servers.Server;
 import javax.ws.rs.core.Application;
+import javax.ws.rs.core.Response;
 @Slf4j
 @OpenAPIDefinition(
         servers = {
@@ -29,4 +30,9 @@ import javax.ws.rs.core.Application;
                         url = "https://www.apache.org/licenses/LICENSE-2.0.html"))
 )
 public class ProApplication extends Application {
+    public Response mapException(RuntimeException x) {
+        return Response.status(Response.Status.NOT_FOUND)
+                       .entity("Unknown cheese: " + x.getMessage())
+                       .build();
+    }
 }

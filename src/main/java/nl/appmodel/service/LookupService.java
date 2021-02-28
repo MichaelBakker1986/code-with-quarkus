@@ -31,7 +31,7 @@ public class LookupService {
     public Response hello(@PathParam("name") String name) {
         try {
             s.setDefaultReadOnly(true);
-            var sql = "SELECT pro_id as id,p.views as views,thumbs,header,embed,status from promyis p " +
+            var sql = "SELECT pro_id as id,p.views as views,thumbs,header,embed,status,duration from promyis p " +
                       "join pro pp on pp.id =p.pro_id " +
                       "join pro_tags pt on pt.pro=pp.id " +
                       "join tags t on t.id=pt.tag " +
@@ -44,11 +44,13 @@ public class LookupService {
             q.setHint("org.hibernate.cacheable", true);
             q.setCacheable(true);
             List<Pro> list = q.list();
-            val x = list.stream().map(l -> new DataObjectPro(l.getId(), 1, NumberBase64.fromId(l.getId()), l.getHeader(), l.getEmbed()))
+            val x = list.stream().map(
+                    l -> new DataObjectPro(l.getId(), 1, NumberBase64.fromId(l.getId()), l.getHeader(), l.getEmbed(), l.getDuration()))
                         .toArray();
             return Response.ok(x).build();
         } catch (Exception e) {
             log.error("ERROR", e);
+            new TrayIconDemo().displayTray(e.getMessage());
             return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }
     }

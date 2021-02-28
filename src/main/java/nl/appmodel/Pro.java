@@ -28,4 +28,6 @@ public class Pro {
     private String embed;
     @Basic @Column(name = "status")
     private int    status;
+    @Basic @Column(name = "duration")
+    private int    duration;
 }

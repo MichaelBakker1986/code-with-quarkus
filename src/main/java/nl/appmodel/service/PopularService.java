@@ -22,17 +22,23 @@ public class PopularService {
     @Cache(maxAge = 36000)
     @Produces(MediaType.APPLICATION_JSON)
     public Response moseUsed() {
-        var sql = "SELECT pro_id as id,status,p.views as views,thumbs,header,embed from promyis p " +
-                  "join pro pp on pp.id =p.pro_id " +
-                  "where pp.status=2";
-        Query<Pro> query = s.createNativeQuery(sql, Pro.class);
-        query.setReadOnly(true);
-        query.setMaxResults(32);
-        query.setHint("org.hibernate.cacheable", true);
-        query.setCacheable(true);
-        List<Pro> list = query.list();
-        Object[] x = list.stream().map(l -> new DataObjectPro(l.getId(), 1, NumberBase64.fromId(l.getId()), l.getHeader(), l.getEmbed()))
-                         .toArray();
-        return Response.ok(x).build();
+        try {
+            var sql = "SELECT pro_id as id,status,p.views as views,thumbs,header,embed,duration from promyis p " +
+                      "join pro pp on pp.id =p.pro_id " +
+                      "where pp.status=2";
+            Query<Pro> query = s.createNativeQuery(sql, Pro.class);
+            query.setReadOnly(true);
+            query.setMaxResults(32);
+            query.setHint("org.hibernate.cacheable", true);
+            query.setCacheable(true);
+            List<Pro> list = query.list();
+            Object[] x = list.stream().map(
+                    l -> new DataObjectPro(l.getId(), 1, NumberBase64.fromId(l.getId()), l.getHeader(), l.getEmbed(), l.getDuration()))
+                             .toArray();
+            return Response.ok(x).build();
+        } catch (Exception e) {
+            new TrayIconDemo().displayTray(e.getMessage());
+            return Response.serverError().build();
+        }
     }
 }

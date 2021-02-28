@@ -14,4 +14,5 @@ public class DataObjectPro {
     String sha;
     String header;
     String embed;
+    int    duration;
 }
