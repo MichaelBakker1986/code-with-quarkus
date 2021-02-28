@@ -3,10 +3,10 @@ package nl.appmodel.service;
 import lombok.SneakyThrows;
 import java.awt.*;
 import java.awt.TrayIcon.MessageType;
-public class TrayIconDemo {
+public class Notifier {
     public static void main(String[] args) throws AWTException {
         if (SystemTray.isSupported()) {
-            TrayIconDemo td = new TrayIconDemo();
+            Notifier td = new Notifier();
             td.displayTray("Demo");
         } else {
             System.err.println("System tray not supported!");

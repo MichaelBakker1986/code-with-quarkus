@@ -50,7 +50,7 @@ public class LookupService {
             return Response.ok(x).build();
         } catch (Exception e) {
             log.error("ERROR", e);
-            new TrayIconDemo().displayTray(e.getMessage());
+            new Notifier().displayTray(e.getMessage());
             return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }
     }

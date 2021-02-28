@@ -37,7 +37,7 @@ public class PopularService {
                              .toArray();
             return Response.ok(x).build();
         } catch (Exception e) {
-            new TrayIconDemo().displayTray(e.getMessage());
+            new Notifier().displayTray(e.getMessage());
             return Response.serverError().build();
         }
     }
