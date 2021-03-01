@@ -31,12 +31,11 @@ public class LookupService {
     public Response hello(@PathParam("name") String name) {
         try {
             s.setDefaultReadOnly(true);
-            var sql = "SELECT pro_id as id,p.views as views,thumbs,header,embed,status,duration from promyis p " +
-                      "join pro pp on pp.id =p.pro_id " +
-                      "join pro_tags pt on pt.pro=pp.id " +
-                      "join tags t on t.id=pt.tag " +
-                      "where pp.status=2 " +
-                      "and t.name=:name";
+            var sql = "SELECT p.id,views,thumbs,header,embed,status,duration FROM pro p " +
+                      "JOIN pro_tags pt on pt.pro=p.id " +
+                      "JOIN tags t ON t.id=pt.tag " +
+                      "where status=2 AND t.name=:name " +
+                      "order by views DESC ";
             Query<Pro> q = s.createNativeQuery(sql, Pro.class);
             q.setParameter("name", name);
             q.setReadOnly(true);
