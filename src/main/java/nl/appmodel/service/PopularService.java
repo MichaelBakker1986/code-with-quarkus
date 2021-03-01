@@ -23,9 +23,9 @@ public class PopularService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response moseUsed() {
         try {
-            var sql = "SELECT pro_id as id,status,p.views as views,thumbs,header,embed,duration from promyis p " +
-                      "join pro pp on pp.id =p.pro_id " +
-                      "where pp.status=2";
+            var sql = "SELECT p.id,views,thumbs,header,embed,status,duration FROM pro p " +
+                      "where p.status=2 " +
+                      "order by views DESC ";
             Query<Pro> query = s.createNativeQuery(sql, Pro.class);
             query.setReadOnly(true);
             query.setMaxResults(32);
