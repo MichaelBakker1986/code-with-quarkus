@@ -21,7 +21,7 @@ public class Pro {
     @Basic @Column(name = "thumbs")
     private String thumbs;
     @Basic @Column(name = "views")
-    private int    views;
+    private long   views;
     @Basic @Column(name = "header")
     private String header;
     @Basic @Column(name = "embed")

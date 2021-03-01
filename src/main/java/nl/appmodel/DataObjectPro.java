@@ -15,4 +15,5 @@ public class DataObjectPro {
     String header;
     String embed;
     int    duration;
+    long   views;
 }

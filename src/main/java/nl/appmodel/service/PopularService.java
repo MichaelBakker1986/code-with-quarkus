@@ -33,7 +33,8 @@ public class PopularService {
             query.setCacheable(true);
             List<Pro> list = query.list();
             Object[] x = list.stream().map(
-                    l -> new DataObjectPro(l.getId(), 1, NumberBase64.fromId(l.getId()), l.getHeader(), l.getEmbed(), l.getDuration()))
+                    l -> new DataObjectPro(l.getId(), 1, NumberBase64.fromId(l.getId()), l.getHeader(), l.getEmbed(), l.getDuration(),
+                                           l.getViews()))
                              .toArray();
             return Response.ok(x).build();
         } catch (Exception e) {
