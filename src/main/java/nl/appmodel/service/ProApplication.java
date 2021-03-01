@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 @Slf4j
 @OpenAPIDefinition(
         servers = {
+                @Server(url = "https://appmodel.nl"),
                 @Server(url = "https://appmodel.org"),
                 @Server(url = "https://127.0.0.1:8083"),
                 @Server(url = "https://127.0.0.1:8081"),
