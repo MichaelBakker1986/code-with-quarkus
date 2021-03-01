@@ -38,6 +38,11 @@
     </dependencyManagement>
     <dependencies>
         <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-transport-native-kqueue</artifactId>
+            <classifier>osx-x86_64</classifier>
+        </dependency>
+        <dependency>
             <groupId>mi.mike</groupId>
             <artifactId>opencv</artifactId>
             <version>1.3-SNAPSHOT</version>
