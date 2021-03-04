@@ -15,7 +15,6 @@
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>12</maven.compiler.target>
         <maven.compiler.release>12</maven.compiler.release>
-        <maven.home>C:/Users/michael/apache-maven-3.6.3/</maven.home>
         <mysql-connector-java.version>8.0.20</mysql-connector-java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
