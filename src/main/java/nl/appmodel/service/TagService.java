@@ -17,13 +17,18 @@ public class TagService {
     @Produces(MediaType.APPLICATION_JSON)
     @Cache(maxAge = 43200)
     public Response tags(@PathParam("best") @DefaultValue("10") int best) {
-        val q = s.createNativeQuery(
-                "select id,LOWER(name) as name,mt.popularity as popularity From most_popular mt inner join tags t on mt.tag_id = t.id  order by mt.popularity desc",
-                Tags.class);
-        q.setMaxResults(best);
-        q.setReadOnly(true);
-        q.setHint("org.hibernate.cacheable", true);
-        q.setCacheable(true);
-        return Response.ok(q.list()).build();
+        try {
+            val q = s.createNativeQuery(
+                    "select id,LOWER(name) as name,mt.popularity as popularity From most_popular mt inner join tags t on mt.tag_id = t.id  order by mt.popularity desc",
+                    Tags.class);
+            q.setMaxResults(best);
+            q.setReadOnly(true);
+            q.setHint("org.hibernate.cacheable", true);
+            q.setCacheable(true);
+            return Response.ok(q.list()).build();
+        } catch (Exception e) {
+            new Notifier().displayTray(e.getMessage());
+            return Response.serverError().build();
+        }
     }
 }
